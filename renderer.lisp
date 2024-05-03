@@ -280,7 +280,7 @@ You should be define generic function to init, draw, and release for each step o
 	 (camera (camera *running-renderer*))
 	 (key-modifier (key-modifier *running-renderer*)))
     (cond ((find :control key-modifier) (gfx:track-mouse-zoom camera (- x) (- y) .1))
-	  ((find :alt key-modifier) (gfx:track-mouse-pan camera (- x) y .1))
+	  ((find :shift key-modifier) (gfx:track-mouse-pan camera (- x) y .1))
 	  (t (gfx:track-mouse-spin camera (- x) y .1)))))
 
 
