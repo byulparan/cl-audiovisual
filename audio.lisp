@@ -27,7 +27,7 @@ support params:
 	   (getf *audio-signal-data* :icontrol2) control2
 	   (getf *audio-signal-data* :icontrol3) control3)))
   (sc:proxy :signal-monitor-synth
-    (let* ((trig (sc:impulse.kr 20)))
+    (let* ((trig (sc:impulse.kr 30)))
       (sc:send-reply.kr trig "/signal-monitor"
 			(list (sc:peak.ar (sc:mix (sc:in.ar 0 2)) trig)
 			      (sc:in.kr 0)
