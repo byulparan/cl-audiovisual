@@ -9,7 +9,7 @@
 	:icontrol3 0.0))
 
 
-(defun get-audio (param)
+(defun get-data (param)
   "get audio/control data from cl-collider's audio server(scsynth).
 support params:
   :ivolume0 - volume data to mix of 0 and 1 bus.

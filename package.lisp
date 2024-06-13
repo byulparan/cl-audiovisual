@@ -2,7 +2,7 @@
 (defpackage #:av
   (:use #:cl)
   (:export
-   #:get-audio
+   #:get-data
    #:add-monitor
    #:run-cl-collider
    #:stop-cl-collider))
