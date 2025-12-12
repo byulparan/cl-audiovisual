@@ -80,10 +80,10 @@ You should be define generic function to init, draw, and release for each step o
 
 
 (defmethod view-matrix ((renderer renderer))
-  (gfx:eval-camera (camera renderer)))
+  (gfx:look-at (camera renderer)))
 
 (defmethod view-matrix ((canvas gl-canvas))
-  (gfx:eval-camera (camera (renderer canvas))))
+  (gfx:look-at (camera (renderer canvas))))
 
 
 (defmethod init ((canvas gl-canvas)))
