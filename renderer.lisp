@@ -350,18 +350,20 @@ You should be define generic function to init, draw, and release for each step o
   gl-canvas: Class name based on gl-canvas for custom drawing within the renderer."
   `(progn
      (assert (gethash ',name *all-pipeline-table*) nil "Can't found shader ~a" ',name)
-     (unless *running-renderer*
-       (let* ((renderer (make-instance 'renderer :shader-name ',name :fov ,fov
-				       :scene-ratio ,scene-ratio)))
-	 (setf *running-renderer* renderer)
-	 (create-glfw-window renderer ,(first size) ,(second size) ,scene-ratio)))
-     (setf (scene-ratio *running-renderer*) ,scene-ratio)
-     (sb-concurrency:send-message (mailbox *running-renderer*)
-				  (list :cleanup t
-					:shader ',name
-					:size ',size
-					:textures ',textures
-					:gl-canvas ',gl-canvas))))
+     (let* ((message (list :cleanup t
+			   :shader ',name
+			   :size ',size
+			   :textures ',textures
+			   :gl-canvas ',gl-canvas)))
+       (if (not *running-renderer*)
+	   (let* ((renderer (make-instance 'renderer :shader-name ',name :fov ,fov
+					   :scene-ratio ,scene-ratio)))
+	     (setf *running-renderer* renderer)
+	     (sb-concurrency:send-message (mailbox *running-renderer*) message)
+	     (create-glfw-window renderer ,(first size) ,(second size) ,scene-ratio))
+	 (progn
+	   (setf (scene-ratio *running-renderer*) ,scene-ratio)
+	   (sb-concurrency:send-message (mailbox *running-renderer*) message))))))
 
 
 
