@@ -287,7 +287,7 @@ You should be define generic function to init, draw, and release for each step o
 
 (defun create-glfw-window (renderer width height scene-ratio)
   (trivial-main-thread:with-body-in-main-thread ()
-    (float-features:with-float-traps-masked (:invalid :overflow)
+    (float-features:with-float-traps-masked t
       (glfw:with-init
 	#+darwin (%glfw:window-hint #x00023001 0) 
 	(glfw:with-window (:title "" :width width :height height :resizable t
